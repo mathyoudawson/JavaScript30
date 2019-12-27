@@ -6,6 +6,7 @@
 </head>
 <body>
 
+
   <style>
     body {
       margin: 0;
@@ -47,6 +48,28 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+const regex = new RegExp(/(The|An|A)\b\W/);
+const sortedBands = sortBands();
+
+function strip(word){
+  return word.replace(regex, '');
+}
+
+function sortBands(){
+  return bands.sort(function(a, b){
+    if(strip(a) < strip(b)){
+      return -1;
+    }
+    if(strip(a) > strip(b)){
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  });
+}
+
+document.querySelector('#bands').innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
 
 
 </script>
